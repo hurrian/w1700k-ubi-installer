@@ -22,7 +22,7 @@ jobs:
       latest_commit_sha: ${{ steps.get_sha.outputs.latest_commit_sha }}
     steps:
       - name: Checkout remote repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@main
         with:
           repository: ${{ env.REMOTE_REPOSITORY }}
           ref: ${{ env.REMOTE_BRANCH }}
@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout installer repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@main
         with:
           path: installer-repo
 
@@ -53,11 +53,12 @@ jobs:
             python3-setuptools rsync swig unzip zlib1g-dev file wget curl
 
       - name: Checkout OpenWrt repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@main
         with:
           repository: ${{ env.REMOTE_REPOSITORY }}
           ref: ${{ env.REMOTE_BRANCH }}
           path: openwrt
+          fetch-depth: 0
 
       - name: Use Github feeds
         run: |
