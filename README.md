@@ -19,7 +19,7 @@ On your UART console, enter the following commands:
 > setenv serverip 192.168.1.10 ; setenv ipaddr 192.168.1.1 ; tftpboot 0x89000000 openwrt-airoha-an7581-gemtek_w1700k-ubi-chainload-uboot.itb
 > flash erase 0x600000 0x100000
 > flash write 0x600000 0x100000 0x89000000
-> reboot
+> reset
 ```
 
 Your device will now reboot to the U-Boot Chainloader.
