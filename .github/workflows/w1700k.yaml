@@ -136,7 +136,7 @@ jobs:
           cp "openwrt/bin/targets/${{ env.TARGET_SUBTARGET }}/${{ env.UBOOT_XR1710G }}" "output/installer/"
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@main
         with:
           name: w1700k-installer
           path: |
