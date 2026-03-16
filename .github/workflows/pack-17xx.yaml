@@ -47,21 +47,21 @@ jobs:
           mkdir -p ../staging
           cp bin/targets/airoha/an7581/*sysupgrade.itb ../staging/sysupgrade.itb
           mkdir -p ../output
-          cp bin/targets/airoha/an7581/*u-boot.itb ../output/ || true
+          cp bin/targets/airoha/an7581/*uboot* ../output/ || true
 
       - name: Outer Build (Custom Installer)
         run: |
           # 1. Locate the Image Builder components
-          # These paths are standard within the IB after 'make image'
+          IB_SKELETON=$(find ib/build_dir -name "root.orig-airoha" -type d | head -n 1)
+          if [ -z "$IB_SKELETON" ]; then
+            IB_SKELETON=$(find ib/build_dir -name "root-airoha" -type d | head -n 1)
+          fi
           KERNEL_BIN=$(find ib/build_dir -name "*-kernel.bin" | head -n 1)
           DTB_BIN=$(find ib/build_dir -name "image-*.dtb" | head -n 1)
-          RECOVERY_ITB=$(find ib/bin -name "*initramfs-recovery.itb" | head -n 1)
           mkdir -p installer_work/initrd
           cd installer_work
-          # 2. Extract official initramfs
-          # We use dumpimage to grab the first image component (the ramdisk)
-          dumpimage -i "$RECOVERY_ITB" -p 1 initrd.xz
-          xz -d < initrd.xz | cpio -i -D initrd/
+          # 2. Copy initrd skeleton
+          cp -pPR "$IB_SKELETON/." initrd/
           # 3. Inject Installer payload and custom files
           mkdir -p initrd/installer
           cp ../staging/sysupgrade.itb initrd/installer/
