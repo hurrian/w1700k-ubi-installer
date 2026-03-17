@@ -98,18 +98,22 @@ jobs:
           find . | LC_ALL=C sort | cpio --reproducible -o -H newc -R 0:0 | xz -9 --check=crc32 > ../installer.initrd
           cd ..
           # 6. Generate ITS and Final ITB using absolute kernel path
-          chmod +x ../ib/scripts/mkits.sh
           ../ib/scripts/mkits.sh \
-            -D "${{ matrix.profile }}" \
-            -o installer.its \
-            -k "$ABS_KERNEL" \
+            -A arm64 \
             -C none \
+            -v "6.12" \
+            -k "$ABS_KERNEL" \
+            -a 0x80200000 \
+            -e 0x80200000 \
+            -c "config-1" \
+            -D "${{ matrix.profile }}" \
+            -n 1 \
             -d ./installer.dtb \
+            -s 0x82000000 \
             -i ./installer.initrd \
-            -a 0x80200000 -e 0x80200000 \
-            -A arm64 -v "6.12"
+            -o installer.its
           # 7. Final Pack
-          mkimage -E -B 0x1000 -f installer.its ../output/${{ matrix.installer_name }}
+          mkimage -E -B 0x1000 -f installer.its ../output/${{ matrix.installer }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@main
