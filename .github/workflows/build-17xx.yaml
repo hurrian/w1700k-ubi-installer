@@ -18,6 +18,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - device: w1700k
+            recovery: openwrt-airoha-an7581-gemtek_w1700k-ubi-initramfs-recovery.itb
+            sysupgrade: openwrt-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb
+            installer: openwrt-airoha-an7581-gemtek_w1700k-ubi-initramfs-installer.itb
+            uboot: openwrt-airoha-an7581-gemtek_w1700k-ubi-chainload-uboot.itb
           - device: xr1710g
             recovery: openwrt-airoha-an7581-gemtek_xr1710g-ubi-initramfs-recovery.itb
             sysupgrade: openwrt-airoha-an7581-gemtek_xr1710g-ubi-squashfs-sysupgrade.itb
