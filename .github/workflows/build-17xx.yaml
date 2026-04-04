@@ -5,7 +5,7 @@ on:
 
 env:
   REMOTE_REPOSITORY: hurrian/openwrt-w1700k
-  REMOTE_BRANCH: xr1710g-plus
+  REMOTE_BRANCH: xr1710g-safe
   TARGET_SUBTARGET: airoha/an7581
   INNER_CONFIG: configs/build.config
   OUTER_CONFIG: configs/minimal.config
