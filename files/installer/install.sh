@@ -113,7 +113,7 @@ get_factory_eeprom() {
 
   [ -d "$FACTORY_TMP" ] || mkdir -p "$FACTORY_TMP"
 
-  ebs="$(cat /sys/class/mtd/$(basename /dev/mtd0)/erasesize)"
+  ebs="$(cat /sys/class/mtd/mtd0/erasesize)"
   off="$init_off"
   skip="$((init_off / ebs))"
 
